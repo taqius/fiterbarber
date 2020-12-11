@@ -17,6 +17,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
+        "mike42/escpos-php": "^3.0",
         "nesbot/carbon": "^2.42",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
