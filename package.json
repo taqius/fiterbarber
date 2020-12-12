@@ -27,6 +27,7 @@
         "@fortawesome/fontawesome-free": "^5.15.1",
         "datatables.net": "^1.10.22",
         "datatables.net-dt": "^1.10.22",
+        "ionicons": "^5.2.3",
         "sweetalert": "^2.1.2"
     }
 }

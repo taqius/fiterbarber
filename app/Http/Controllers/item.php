@@ -21,8 +21,8 @@ class item
 
     public function __toString()
     {
-        $rightCols = 10;
-        $leftCols = 20;
+        $rightCols = 15;
+        $leftCols = 15;
         if ($this->dollarSign) {
             $leftCols = $leftCols / 2 - $rightCols / 2;
         }

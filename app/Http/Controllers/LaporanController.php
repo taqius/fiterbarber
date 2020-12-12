@@ -128,6 +128,7 @@ class LaporanController extends Controller
         //request data
         $nama = $request->pilnama;
         $bulan = $this->bulan($request->month);
+        $tahun = $request->tahun;
         $totalpotong = Transaksi::whereMonth('tanggal', $request->month)->whereYear('tanggal', $request->tahun)->where('nama', $nama)->where('keterangan', $request->ket)->get()->sum('jumlah');
 
         /* Open file */
@@ -139,9 +140,9 @@ class LaporanController extends Controller
         $printer = new Printer($connector);
 
         /* Print Logo */
-        $gambar = asset('images/logo fiter barber.png');
-        $img = EscposImage::load($gambar, false);
-        $printer->graphics($img);
+
+        // $img = EscposImage::load(asset('images/logo_fiter_tok.png'));
+        // $printer->graphics($img, false);
         /* Name of shop */
         $printer->selectPrintMode(Printer::MODE_EMPHASIZED);
         $printer->setJustification(Printer::JUSTIFY_CENTER);
@@ -149,7 +150,7 @@ class LaporanController extends Controller
         $printer->selectPrintMode();
         $printer->text("Ngampel Kulon - Ngampel\n");
         $printer->text("Karangayu - Cepiring\n");
-        $printer->text($nama . "\n");
+        // $printer->text($nama . "\n");
         $printer->feed();
 
         /* Title of receipt */
@@ -160,7 +161,7 @@ class LaporanController extends Controller
         /* Information for the receipt */
         $items = array(
             new item("Nama", $nama),
-            new item("Bulan", $bulan),
+            new item("Bulan", $bulan . "," . $tahun),
         );
         $subtotal = new item('Total Potong', $totalpotong);
         // $tax = new item('A local tax', '1.30');
@@ -191,11 +192,11 @@ class LaporanController extends Controller
         // $printer->selectPrintMode();
 
         /* Footer */
-        $printer->feed(2);
+        $printer->feed();
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("Fiter Barber\n");
-        $printer->text("Tampan dan Berani\n");
-        $printer->feed(2);
+        // $printer->text("Tampan dan Berani\n");
+        $printer->feed();
         $printer->text($date . "\n");
 
         /* Cut the receipt and open the cash drawer */
