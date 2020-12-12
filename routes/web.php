@@ -7,6 +7,9 @@ use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +26,8 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/toprint', [App\Http\Controllers\HomeController::class, 'toprint'])->name('toprint');
+Route::post('/print', [App\Http\Controllers\LaporanController::class, 'print'])->name('print');
 // Route::get('/pegawai', [App\Http\Controllers\PegawaiController::class, 'index'])->name('pegawai');
 // Route::post('/pegawai', [App\Http\Controllers\PegawaiController::class, 'store'])->name('insert pegawai');
 // Route::get('/pegawai/create', [App\Http\Controllers\PegawaiController::class, 'create'])->name('tambah');
@@ -37,5 +42,6 @@ Route::resource('laporan', LaporanController::class);
 Route::resource('keuangan', KeuanganController::class);
 Route::get('/searchbulan/{tgl}/{tahun}/{nama}/{ket}', [App\Http\Controllers\LaporanController::class, 'searchbulan'])->name('searchbulan');
 Route::get('/searchsaldo/{tgl}/{tahun}', [App\Http\Controllers\KeuanganController::class, 'searchsaldo'])->name('searchsaldo');
+
 
 Auth::routes();

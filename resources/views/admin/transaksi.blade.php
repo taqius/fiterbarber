@@ -2,12 +2,21 @@
 
 @section('content')
 <div class="row my-2 ml-2">
-    <a href="/transaksi/create" class="btn btn-primary">Tambah Transaksi</a> 
+    <a href="/transaksi/create" class="btn btn-primary">Tambah Transaksi</a>
 </div>
 <div class="row my-2 ml-2">
     @if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">
+                {{ session('status') }}
+            </h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
     </div>
 @endif
 
@@ -22,6 +31,7 @@
             <th scope="col">Keterangan</th>
             <th scope="col">Jumlah</th>
             <th scope="col">Total</th>
+            <th scope="col">Aksi</th>
         </tr>
     </thead>
     @foreach($transaksi as $p)
@@ -35,19 +45,19 @@
         <td>{{$p->jumlah}}</td>
         <td>{{$p->total}}</td>
         <td>
-        <a href="/transaksi/{{$p->id}}" class="btn btn-success">Detail</a>  
-        <a href="/transaksi/{{$p->id}}/edit" class="btn btn-primary">Edit</a> 
-            
-        
+        {{-- <a href="/transaksi/{{$p->id}}" class="btn btn-success">Detail</a>
+        <a href="/transaksi/{{$p->id}}/edit" class="btn btn-primary">Edit</a> --}}
+
+
             <form action="/transaksi/{{$p->id}}" method="POST" class="d-inline">
                 @method('delete')
                 @csrf
-                <button class="btn btn-danger" type="submit">Delete</button>
+                <button class="btn btn-danger tombol-hapus" type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
     @endforeach
-</table>  
+</table>
 {{ $transaksi->onEachSide(5)->links() }}
 @endsection

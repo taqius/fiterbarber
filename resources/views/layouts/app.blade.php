@@ -6,6 +6,10 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <link rel="icon" href="{{asset('images/logo fiter barber.png')}}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     @yield('third_party_stylesheets')
@@ -78,11 +82,17 @@
     </footer>
 </div>
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/popper.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/sweetalert2.all.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('dist/js/adminlte.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ mix('js/app.js') }}" defer></script>
 <script type="text/javascript">
     $(document).ready(function() {
 
-        
+
         $("#jumlah").keyup(function() {
             var harga  = $("#harga").val();
             var jumlah = $("#jumlah").val();
@@ -139,7 +149,7 @@
         $("#bulan, #tahunk").change(function() {
             var tgl = $("#bulan").val();
             var tahun = $("#tahunk").val();
-            
+
             //ajax
             $.get(`/searchsaldo/${tgl}/${tahun}`, function(data){
                 var totaldata = data.total;
@@ -152,7 +162,7 @@
                         sisa 	= number_string.length % 3,
                         rupiah 	= number_string.substr(0, sisa),
                         ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
-                            
+
                     if (ribuan) {
                         separator = sisa ? '.' : '';
                         rupiah += separator + ribuan.join('.');
@@ -161,7 +171,7 @@
                         sisa 	= bons.length % 3,
                         rupiahb 	= bons.substr(0, sisa),
                         ribuan 	= bons.substr(sisa).match(/\d{3}/g);
-                            
+
                     if (ribuan) {
                         separator = sisa ? '.' : '';
                         rupiahb += separator + ribuan.join('.');
@@ -170,7 +180,7 @@
                         sisa 	= peng.length % 3,
                         rupiahp 	= peng.substr(0, sisa),
                         ribuan 	= peng.substr(sisa).match(/\d{3}/g);
-                            
+
                     if (ribuan) {
                         separator = sisa ? '.' : '';
                         rupiahp += separator + ribuan.join('.');
@@ -179,7 +189,7 @@
                         sisa 	= pem.length % 3,
                         rupiahpem	= pem.substr(0, sisa),
                         ribuan 	= pem.substr(sisa).match(/\d{3}/g);
-                            
+
                     if (ribuan) {
                         separator = sisa ? '.' : '';
                         rupiahpem += separator + ribuan.join('.');
@@ -188,7 +198,7 @@
                         sisa 	= saldokurangibon.length % 3,
                         rupiahsb	= saldokurangibon.substr(0, sisa),
                         ribuan 	= saldokurangibon.substr(sisa).match(/\d{3}/g);
-                            
+
                     if (ribuan) {
                         separator = sisa ? '.' : '';
                         rupiahsb += separator + ribuan.join('.');
@@ -268,11 +278,9 @@
             });
         });
 
-
-
-
     });
 </script>
+
 @yield('third_party_scripts')
 
 @stack('page_scripts')
