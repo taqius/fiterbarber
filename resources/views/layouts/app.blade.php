@@ -6,10 +6,10 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <link rel="icon" href="{{asset('images/logo fiter barber.png')}}">
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}"> --}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     @yield('third_party_stylesheets')
@@ -82,29 +82,29 @@
     </footer>
 </div>
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/popper.min.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('js/popper.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/sweetalert2.all.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('dist/js/adminlte.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
-<script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script> --}}
 <script src="{{ mix('js/app.js') }}" defer></script>
 <script type="text/javascript">
     $(document).ready(function() {
 
 
-        $("#jumlah").keyup(function() {
+        $("#jumlah, #harga").keyup(function() {
             var harga  = $("#harga").val();
             var jumlah = $("#jumlah").val();
-            var total = parseInt(harga) * parseInt(jumlah);
+            var total = parseInt(harga) * parseFloat(jumlah);
             $("#total").val(total);
         });
         $("#keterangan").change(function() {
           var keterangan = $("#keterangan").val();
-          if(keterangan == 'Potong' ){
-            var harga = 10000;
-          }else{
+          if(keterangan == 'Pomade' ){
             var harga = 40000;
+          }else{
+            var harga = 10000;
           }
             $("#harga").val(harga);
             var harga  = $("#harga").val();
@@ -155,9 +155,28 @@
                 var totaldata = data.total;
                 var bon = data.bon;
                 var pengeluaran = data.pengeluaran;
-                var pemasukan = totaldata - (bon+pengeluaran);
-                var totalsaldo = pemasukan - pengeluaran;
+                var gaji = data.gaji;
+                var pemasukan = totaldata - (bon+pengeluaran+gaji);
+                var totalsaldo = pemasukan - (pengeluaran+gaji);
                 var saldominusbon = totalsaldo - bon;
+                var	gajistring = gaji.toString(),
+                        sisa 	= gajistring.length % 3,
+                        rupiahgj 	= gajistring.substr(0, sisa),
+                        ribuan 	= gajistring.substr(sisa).match(/\d{3}/g);
+
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiahgj += separator + ribuan.join('.');
+                    }
+                    var	bons = bon.toString(),
+                        sisa 	= bons.length % 3,
+                        rupiahb 	= bons.substr(0, sisa),
+                        ribuan 	= bons.substr(sisa).match(/\d{3}/g);
+
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiahb += separator + ribuan.join('.');
+                    }
                 var	number_string = totalsaldo.toString(),
                         sisa 	= number_string.length % 3,
                         rupiah 	= number_string.substr(0, sisa),
@@ -247,7 +266,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-6 offset-3">
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h4>Gaji Karyawan</h4>
+                                <p>Bulan ${data.bulan} Tahun ${tahun}</p>
+                                <h4>  Rp. ${rupiahgj}</h4>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="#" class="small-box-footer"><i class="fas fa-arrow-circle-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
                         <div class="small-box bg-danger">
                             <div class="inner">
                                 <h4>Total Bon</h4>

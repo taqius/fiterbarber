@@ -33,7 +33,7 @@ class KeuanganController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $tgl, $tahun)
+    public function store(Request $request)
     {
     }
 
@@ -86,6 +86,7 @@ class KeuanganController extends Controller
         $hasil['total'] = Transaksi::whereMonth('tanggal', $tgl)->whereYear('tanggal', $tahun)->get()->sum('total');
         $hasil['bon'] = Transaksi::whereMonth('tanggal', $tgl)->whereYear('tanggal', $tahun)->where('keterangan', 'bon')->get()->sum('total');
         $hasil['pengeluaran'] = Transaksi::whereMonth('tanggal', $tgl)->whereYear('tanggal', $tahun)->where('keterangan', 'pengeluaran')->get()->sum('total');
+        $hasil['gaji'] = Transaksi::whereMonth('tanggal', $tgl)->whereYear('tanggal', $tahun)->where('keterangan', 'gaji')->get()->sum('total');
         $arraybulan = [
             1 => 'Januari',
             'Februari',

@@ -1,4 +1,3 @@
-<!-- need to remove -->
 {{-- menu --}}
 <li class="nav-item">
     <a href="{{ ('/home') }}" class="nav-link">
@@ -30,9 +29,4 @@
         <p>Keuangan</p>
     </a>
 </li>
-<li class="nav-item">
-    <a href="{{ ('/toprint') }}" class="nav-link">
-        <i class="nav-icon fas fa-balance-scale"></i>
-        <p>Print</p>
-    </a>
-</li>
+

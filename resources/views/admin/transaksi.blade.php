@@ -19,8 +19,8 @@
         </div>
     </div>
 @endif
-
 </div>
+
 <table class="table table-hover" id="tabeltransaksi">
     <thead>
         <tr>

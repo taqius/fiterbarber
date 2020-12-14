@@ -206,7 +206,7 @@ class LaporanController extends Controller
         $printer->close();
 
         /* Copy it over to the printer */
-        copy($file, "//localhost/Gudang2");
+        copy($file, "//localhost/EPSONTU");
         unlink($file);
         return redirect('/laporan');
     }

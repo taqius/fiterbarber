@@ -45,7 +45,7 @@ class TransaksiController extends Controller
         ]);
 
         Transaksi::create($request->all());
-        return redirect('/transaksi')->with('status', 'Transaksi Berhasil di Simpan');
+        return redirect('/transaksi/create')->with('status', 'Transaksi Berhasil di Simpan');
     }
 
     /**
