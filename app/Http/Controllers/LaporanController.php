@@ -12,7 +12,6 @@ use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 
@@ -118,7 +117,6 @@ class LaporanController extends Controller
     {
         $hasil['total'] = Transaksi::whereMonth('tanggal', $tgl)->whereYear('tanggal', $tahun)->where('nama', $nama)->where('keterangan', $ket)->get()->sum('total');
         $hasil['totaljumlah'] = Transaksi::whereMonth('tanggal', $tgl)->whereYear('tanggal', $tahun)->where('nama', $nama)->where('keterangan', $ket)->get()->sum('jumlah');
-
         $hasil['bulan'] = $this->bulan($tgl);
         return response()->json($hasil);
     }
@@ -141,8 +139,8 @@ class LaporanController extends Controller
 
         /* Print Logo */
 
-        // $img = EscposImage::load(asset('images/logo_fiter_tok.png'));
-        // $printer->graphics($img, false);
+        $img = EscposImage::load('./images/logoputih.png');
+        $printer->bitImage($img);
         /* Name of shop */
         $printer->selectPrintMode(Printer::MODE_EMPHASIZED);
         $printer->setJustification(Printer::JUSTIFY_CENTER);
@@ -192,7 +190,6 @@ class LaporanController extends Controller
         // $printer->selectPrintMode();
 
         /* Footer */
-        $printer->feed();
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("Fiter Barber\n");
         // $printer->text("Tampan dan Berani\n");
@@ -206,7 +203,7 @@ class LaporanController extends Controller
         $printer->close();
 
         /* Copy it over to the printer */
-        copy($file, "//localhost/EPSONTU");
+        copy($file, "//localhost/Gudang2");
         unlink($file);
         return redirect('/laporan');
     }
